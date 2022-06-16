@@ -1,5 +1,6 @@
 package com.example.sentimentalstorage.fragments;
 
+import android.media.Image;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
@@ -107,6 +108,12 @@ public class ViewCardsFragment extends Fragment implements OnCardClickedListener
     public void onItemClickedEdit(CardModel cardModel) {
         appViewModel.setWorkingCardViewModel(new CardViewModel(cardModel));
         requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frameLayout, CreateCardFragment.newInstance(true)).addToBackStack(CreateCardFragment.class.getName()).commit();
+    }
+
+    @Override
+    public void onItemClickedView(CardModel cardModel) {
+
+
     }
 
 }

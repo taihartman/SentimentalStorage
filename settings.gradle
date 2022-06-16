@@ -16,3 +16,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "SentimentalStorage"
 include ':app'
+include ':imageviewer'
+include ':sample'

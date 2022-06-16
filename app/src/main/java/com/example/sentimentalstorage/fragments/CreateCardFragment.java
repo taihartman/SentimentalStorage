@@ -93,7 +93,7 @@ public class CreateCardFragment extends Fragment {
 
         //setting up the save button
         fragmentMainBinding.saveCardButton.setOnClickListener(view1 -> {
-
+            //re-using the same fragment for editing and creating
             if(isEdit){
                 appViewModel.updateCard(fragmentMainBinding.getViewModel().getModel());
             }else{

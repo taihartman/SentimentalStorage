@@ -60,13 +60,11 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         }
 
         holder.editButton.setOnClickListener(view -> {
-            Log.d("updates",holder.getAdapterPosition()+"");
             onCardClickedListener.onItemClickedEdit(cardModelList.get(holder.getAdapterPosition()));
         });
 
         holder.materialCardView.setOnClickListener(v -> {
-
-
+            onCardClickedListener.onItemClickedView(cardModelList.get(holder.getAdapterPosition()));
         });
     }
 
