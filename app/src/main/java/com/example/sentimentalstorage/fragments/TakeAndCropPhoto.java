@@ -22,11 +22,13 @@ import com.example.sentimentalstorage.R;
 import com.example.sentimentalstorage.databinding.FragmentTakeAndCropPhotoBinding;
 import com.example.sentimentalstorage.viewModels.AppViewModel;
 import com.example.sentimentalstorage.viewModels.CardViewModel;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.CompletableFuture;
 
@@ -45,12 +47,7 @@ public class TakeAndCropPhoto extends Fragment {
     private static final String ARG_PARAM1 = "isEdit";
 
     private boolean isEdit;
-    private ActivityResultLauncher<String[]> requestPermissionLauncher =
-            registerForActivityResult(new ActivityResultContracts.RequestMultiplePermissions(), isGranted -> {
-                for (Boolean perm: isGranted.values()) {
-                    Log.d("Perms",perm+"");
-                }
-            });
+
 
     private ActivityResultLauncher<Uri> mTakePhoto = registerForActivityResult(new ActivityResultContracts.TakePicture(), result ->{
         if(result){
@@ -94,6 +91,7 @@ public class TakeAndCropPhoto extends Fragment {
                              Bundle savedInstanceState) {
         //Starting the camera to take picture
         appViewModel = new ViewModelProvider(requireActivity()).get(AppViewModel.class);
+
         if (savedInstanceState==null){
             takePicture();
         }
@@ -102,7 +100,6 @@ public class TakeAndCropPhoto extends Fragment {
         fragmentMainBinding = FragmentTakeAndCropPhotoBinding.inflate(inflater, container,false);
 
         //requesting permissions
-        requestPermissionLauncher.launch(new String [] {Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE});
 
         //will let the user take a picture if they back out of the camera by accident
         if (fragmentMainBinding.progressBar.getVisibility() == View.VISIBLE){
@@ -149,7 +146,7 @@ public class TakeAndCropPhoto extends Fragment {
 
     //will take picture and store the file using the date and time
     private void takePicture(){
-        currentFileName = new Date() + ".jpg";
+        currentFileName = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss").format(new Date()) + ".jpg";
         savedFileUri = writeFileOnInternalStorage(requireContext(),currentFileName);
         Log.d("testing",savedFileUri.getPath());
         mTakePhoto.launch(savedFileUri);

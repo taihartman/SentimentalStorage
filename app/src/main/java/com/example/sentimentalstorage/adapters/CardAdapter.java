@@ -64,6 +64,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         });
 
         holder.materialCardView.setOnClickListener(v -> {
+            Log.d("test","clicked");
             onCardClickedListener.onItemClickedView(cardModelList.get(holder.getAdapterPosition()));
         });
     }

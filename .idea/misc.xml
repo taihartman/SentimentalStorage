@@ -12,8 +12,10 @@
         <entry key="..\:/Personal/SentimentalStorage/app/src/main/res/layout/activity_main.xml" value="0.24166666666666667" />
         <entry key="..\:/Personal/SentimentalStorage/app/src/main/res/layout/card_item.xml" value="0.5" />
         <entry key="..\:/Personal/SentimentalStorage/app/src/main/res/layout/create_card_fragment.xml" value="0.18802083333333333" />
+        <entry key="..\:/Personal/SentimentalStorage/app/src/main/res/layout/fragment_blank.xml" value="0.2421875" />
         <entry key="..\:/Personal/SentimentalStorage/app/src/main/res/layout/fragment_take_and_crop_photo.xml" value="0.36666666666666664" />
         <entry key="..\:/Personal/SentimentalStorage/app/src/main/res/layout/fragment_view_cards.xml" value="0.25" />
+        <entry key="..\:/Personal/SentimentalStorage/app/src/main/res/layout/fullscreen_photo_layout.xml" value="0.23489583333333333" />
         <entry key="..\:/Personal/SentimentalStorage/app/src/main/res/layout/photo_layout.xml" value="0.33" />
         <entry key="..\:/Personal/SentimentalStorage/app/src/main/res/layout/take.xml" value="0.36666666666666664" />
         <entry key="..\:/Personal/SentimentalStorage/app/src/main/res/xml/provider_paths.xml" value="0.18802083333333333" />

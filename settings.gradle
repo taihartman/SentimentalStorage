@@ -12,9 +12,10 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url "https://jitpack.io" }
+
     }
 }
 rootProject.name = "SentimentalStorage"
 include ':app'
 include ':imageviewer'
-include ':sample'
