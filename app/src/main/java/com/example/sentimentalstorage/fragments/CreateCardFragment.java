@@ -101,7 +101,7 @@ public class CreateCardFragment extends Fragment {
                 appViewModel.addCard(fragmentMainBinding.getViewModel().getModel());
             }
 
-            Snackbar.make(requireActivity(),fragmentMainBinding.saveCardButton,getText(R.string.save_sentiment_toast),Snackbar.LENGTH_SHORT).show();
+            Snackbar.make(requireActivity(),fragmentMainBinding.photoRecyclerView,getText(R.string.save_sentiment_toast),Snackbar.LENGTH_SHORT).show();
             requireActivity().getSupportFragmentManager().popBackStack(ViewCardsFragment.class.getName(),0);
         });
 

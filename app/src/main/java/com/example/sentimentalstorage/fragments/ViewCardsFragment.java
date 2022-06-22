@@ -1,8 +1,6 @@
 package com.example.sentimentalstorage.fragments;
 
 import android.Manifest;
-import android.content.Context;
-import android.media.Image;
 import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
@@ -11,17 +9,14 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.example.sentimentalstorage.OnCardClickedListener;
 import com.example.sentimentalstorage.R;
@@ -30,9 +25,8 @@ import com.example.sentimentalstorage.models.CardModel;
 import com.example.sentimentalstorage.viewModels.AppViewModel;
 import com.example.sentimentalstorage.viewModels.CardViewModel;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
-import com.stfalcon.imageviewer.StfalconImageViewer;
-import com.stfalcon.imageviewer.loader.ImageLoader;
 
 import java.util.ArrayList;
 
@@ -94,6 +88,23 @@ public class ViewCardsFragment extends Fragment implements OnCardClickedListener
         layoutManager = new LinearLayoutManager(requireActivity());
         cardRecyclerView.setLayoutManager(layoutManager);
         cardAdapter = new CardAdapter(this);
+
+        //setting up the swipe to remove functionality
+        new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                return false;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                ArrayList<CardModel> tempData = new ArrayList<>(appViewModel.getCardModels().getValue());
+                appViewModel.removeCard(viewHolder.getAdapterPosition());
+                Snackbar.make(requireActivity(),root.findViewById(R.id.createCardButton),getText(R.string.removed_card_toast),Snackbar.LENGTH_LONG).setAction("Undo", view ->
+                        appViewModel.undo(tempData)).show();
+            }
+        }).attachToRecyclerView(cardRecyclerView);
+
         cardRecyclerView.setAdapter(cardAdapter);
 
         //setting up the floating action button
@@ -115,22 +126,15 @@ public class ViewCardsFragment extends Fragment implements OnCardClickedListener
         super.onViewCreated(view, savedInstanceState);
 
         appViewModel = new ViewModelProvider(requireActivity()).get(AppViewModel.class);
-        appViewModel.loadAllCards(requireActivity());
 
-        appViewModel.getCardModels().observe(getViewLifecycleOwner(),userListUpdateObserver);
+        //updating the list when a change occurs
+        appViewModel.getCardModels().observe(getViewLifecycleOwner(), cardModels -> {
+            cardAdapter.updateCardList(cardModels);
+        });
 
         //checking if the user is currently working on a card, if not, creating new card to work on
         appViewModel.setWorkingCardViewModel(new CardViewModel());
     }
-
-    //updating the list when a change occurs
-    Observer<ArrayList<CardModel>> userListUpdateObserver = new Observer<ArrayList<CardModel>>() {
-        @Override
-        public void onChanged(ArrayList<CardModel> cardModels) {
-            cardAdapter.updateCardList(cardModels);
-            appViewModel.saveAllCards(requireActivity());
-        }
-    };
 
 
     @Override

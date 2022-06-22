@@ -9,6 +9,7 @@
     <string name="giverTitle">From:</string>
     <string name="add_photo">Add Photo</string>
     <string name="save_sentiment_toast">Saved Sentiment</string>
+    <string name="removed_card_toast">Removed Card</string>
 
 
     <!--Titles -->

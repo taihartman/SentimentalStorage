@@ -67,4 +67,15 @@ public class CardModel {
     public void removeAssociatedPhoto(Uri uri){
         this.associatedPhotos.remove(uri);
     }
+
+
+    @Override
+    public String toString() {
+        return "CardModel{" +
+                "giftGiver='" + giftGiver + '\'' +
+                ", occasion='" + occasion + '\'' +
+                ", dateReceived='" + dateReceived + '\'' +
+                ", associatedPhotos=" + associatedPhotos +
+                '}';
+    }
 }

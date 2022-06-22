@@ -73,10 +73,16 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     public int getItemCount() {
         return cardModelList.size();
     }
+
+    //clearing old and updating the card list
     public void updateCardList(ArrayList<CardModel> cardModelList){
         this.cardModelList.clear();
-        this.cardModelList = cardModelList;
+        this.cardModelList.addAll(cardModelList);
         notifyDataSetChanged();
+    }
+    public void updateIndividualItem(int position){
+
+        notifyItemChanged(position);
     }
     public class ViewHolder extends RecyclerView.ViewHolder {
         //initialize the used views in the item layout we created
