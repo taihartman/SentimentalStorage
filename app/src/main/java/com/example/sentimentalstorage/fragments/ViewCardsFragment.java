@@ -25,6 +25,7 @@ import com.example.sentimentalstorage.models.CardModel;
 import com.example.sentimentalstorage.viewModels.AppViewModel;
 import com.example.sentimentalstorage.viewModels.CardViewModel;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 
@@ -98,10 +99,15 @@ public class ViewCardsFragment extends Fragment implements OnCardClickedListener
 
             @Override
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
-                ArrayList<CardModel> tempData = new ArrayList<>(appViewModel.getCardModels().getValue());
+                CardModel tempCardModel = appViewModel.getCardModels().getValue().get(viewHolder.getAdapterPosition());
+                int position = viewHolder.getAdapterPosition();
                 appViewModel.removeCard(viewHolder.getAdapterPosition());
-                Snackbar.make(requireActivity(),root.findViewById(R.id.createCardButton),getText(R.string.removed_card_toast),Snackbar.LENGTH_LONG).setAction("Undo", view ->
-                        appViewModel.undo(tempData)).show();
+                Snackbar.make(requireActivity(),root.findViewById(R.id.createCardButton),getText(R.string.removed_card_toast),Snackbar.LENGTH_LONG).setAction("Undo", view -> {
+                        appViewModel.addCard(position,tempCardModel);
+                }
+                ).show();
+
+
             }
         }).attachToRecyclerView(cardRecyclerView);
 

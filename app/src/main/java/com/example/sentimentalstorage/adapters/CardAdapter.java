@@ -22,10 +22,7 @@ import java.util.ArrayList;
 public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     private ArrayList<CardModel> cardModelList;
     private OnCardClickedListener onCardClickedListener;
-    public CardAdapter(ArrayList<CardModel> cardModelList) {
-        this.cardModelList = cardModelList;
 
-    }
     public CardAdapter(OnCardClickedListener onCardClickedListener) {
         this.cardModelList = new ArrayList<CardModel>();
         this.onCardClickedListener = onCardClickedListener;
@@ -77,6 +74,9 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     //clearing old and updating the card list
     public void updateCardList(ArrayList<CardModel> cardModelList){
         this.cardModelList.clear();
+        for(CardModel cardModel : cardModelList){
+            Log.d("updateList",cardModel.toString());
+        }
         this.cardModelList.addAll(cardModelList);
         notifyDataSetChanged();
     }

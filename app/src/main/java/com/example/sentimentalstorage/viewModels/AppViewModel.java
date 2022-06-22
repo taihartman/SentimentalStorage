@@ -49,9 +49,6 @@ public class AppViewModel extends ViewModel {
 
     }
     public void addCard(int index, CardModel cardModel){
-        if(cardModelList.size() == 0){
-            cardModelList.add(cardModel);
-        }
         cardModelList.add(index, cardModel);
         cardModelLiveData.setValue(cardModelList);
 

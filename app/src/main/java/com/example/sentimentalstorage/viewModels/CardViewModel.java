@@ -17,6 +17,7 @@ public class CardViewModel extends BaseObservable {
         // model class
         model = cardModel;
     }
+
     // constructor of ViewModel class
     public CardViewModel() {
 

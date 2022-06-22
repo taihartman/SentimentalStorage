@@ -8,12 +8,11 @@ import java.util.ArrayList;
 
 public class CardModel {
 
-
     @Nullable
     String giftGiver, occasion, dateReceived;
 
     ArrayList<Uri> associatedPhotos;
-    public CardModel(String giftGiver, String occasion, String dateReceived) {
+    public CardModel(@Nullable String giftGiver, @Nullable String occasion, @Nullable String dateReceived) {
         this.giftGiver = giftGiver;
         this.occasion = occasion;
         this.dateReceived = dateReceived;
